@@ -1,0 +1,15 @@
+{
+  "name": "dploeger/graylogcollectorsidecar",
+  "version": "0.1.0",
+  "author": "dploeger",
+  "summary": "Installs and configures the graylog collector sidecar",
+  "license": "MIT",
+  "source": "https://github.com/dploeger/puppet-graylogcollectorsidecar",
+  "project_page": "https://github.com/dploeger/puppet-graylogcollectorsidecar",
+  "issues_url": "https://github.com/dploeger/puppet-graylogcollectorsidecar/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
