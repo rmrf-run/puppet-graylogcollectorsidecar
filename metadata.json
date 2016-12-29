@@ -8,7 +8,9 @@
   "project_page": "https://github.com/dploeger/puppet-graylogcollectorsidecar",
   "issues_url": "https://github.com/dploeger/puppet-graylogcollectorsidecar/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"reidmv/yamlfile", "version_requirement":">= 0.2.0"},
+    {"name":"lwf/remote_file", "version_requirement":">= 1.1.3"}
   ],
   "data_provider": null
 }

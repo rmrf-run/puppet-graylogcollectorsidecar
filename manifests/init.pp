@@ -11,7 +11,7 @@
 #
 # * `version`
 # Select the version of the collector to install. Defaults to 'latest',
-# which selects the latest available release version
+# which selects the latest available, stable release version
 # * `api_url`
 # Graylog server api url (e.g. http://graylog.example.com:9000/api)
 # * `tags`
@@ -26,7 +26,11 @@
 #      tags => [ 'apache.accesslog' ]
 #    }
 #
-class graylogcollectorsidecar {
+class graylogcollectorsidecar (
+  $version = 'latest',
+  $api_url,
+  $tags
+) {
 
 
 
