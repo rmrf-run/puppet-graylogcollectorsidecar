@@ -27,11 +27,24 @@
 #    }
 #
 class graylogcollectorsidecar (
-  $version = 'latest',
   $api_url,
-  $tags
+  $tags,
+  $version = 'latest'
 ) {
 
+  case $::osfamily {
+    'Debian': {
+      class {
+        'graylogcollectorsidecar::dist::debian':
+          version => $version,
+          api_url => $api_url,
+          tags    => $tags
+      }
+    }
+    default: {
+      err("Family ${::osfamily} not supported currently.")
+    }
 
+  }
 
 }

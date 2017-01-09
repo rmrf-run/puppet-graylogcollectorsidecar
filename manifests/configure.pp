@@ -6,14 +6,14 @@ class graylogcollectorsidecar::configure (
   yaml_setting {
     'sidecar_set_server':
       target => $sidecar_yaml_file,
-      key => 'server_url',
-      value => $api_url
+      key    => 'server_url',
+      value  => $api_url
   }
 
   yaml_setting {
     'sidecar_set_tags':
       target => $sidecar_yaml_file,
-      key => 'tags',
-      value => $tags
+      key    => 'tags',
+      value  => $tags
   }
 }
