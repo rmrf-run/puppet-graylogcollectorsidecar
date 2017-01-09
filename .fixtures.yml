@@ -1,6 +1,9 @@
 fixtures:
   forge_modules:
     stdlib: "puppetlabs/stdlib"
+    yamlfile: "reidmv/yamlfile"
+    filemapper: "adrien/filemapper"
+    remote_file: "lwf/remote_file"
   repositories:
-    dodevops-githubreleases:
+    githubreleases:
       repo: "https://github.com/dodevops/puppet-githubreleases"

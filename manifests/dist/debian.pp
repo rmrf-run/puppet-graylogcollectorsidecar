@@ -17,6 +17,7 @@ class graylogcollectorsidecar::dist::debian (
       author            => 'Graylog2',
       repository        => 'collector-sidecar',
       release           => $version,
+      is_tag            => true,
       asset             => true,
       asset_filepattern => "${_arch}\\.deb",
       target            => '/tmp/graylog-collector-sidecar.deb'
