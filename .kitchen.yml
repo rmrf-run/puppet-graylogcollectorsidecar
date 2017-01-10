@@ -25,4 +25,4 @@ platforms:
 
 suites:
   - name: default
-    run_list:
+  - name: hiera

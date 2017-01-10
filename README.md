@@ -1,4 +1,5 @@
-# graylogcollectorsidecar
+# dodevops/graylogcollectorsidecar
+[![Travis](https://img.shields.io/travis/dodevops/puppet-graylogcollectorsidecar)](https://travis-ci.org/dodevops/puppet-graylogcollectorsidecar)
 
 #### Table of Contents
 

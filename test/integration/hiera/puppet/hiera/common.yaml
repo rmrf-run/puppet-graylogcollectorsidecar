@@ -1,0 +1,7 @@
+classes:
+    - graylogcollectorsidecar
+
+graylogcollectorsidecar::api_url: "https://graylog.company.com"
+graylogcollectorsidecar::version: "0.1.0-beta.2"
+graylogcollectorsidecar::tags:
+    - TESTTAG
