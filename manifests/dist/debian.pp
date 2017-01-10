@@ -6,12 +6,6 @@ class graylogcollectorsidecar::dist::debian (
   $version = 'latest'
 ) {
 
-  if $facts['hardwaremodel'] == 'x86_64' {
-    $_arch = 'amd64'
-  } else {
-    $_arch = 'i386'
-  }
-
   githubreleases::download {
     'get_sidecar_package':
       author            => 'Graylog2',
@@ -19,8 +13,8 @@ class graylogcollectorsidecar::dist::debian (
       release           => $version,
       is_tag            => true,
       asset             => true,
-      asset_filepattern => "${_arch}\\.deb",
-      target            => '/tmp/graylog-collector-sidecar.deb'
+      asset_filepattern => "${::architecture}\\.deb",
+      target            => '/tmp/collector-sidecar.deb'
   }
 
   # Install the package

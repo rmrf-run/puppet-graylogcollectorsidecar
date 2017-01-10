@@ -30,3 +30,18 @@ task :test do
     Rake::Task[test].invoke
   end
 end
+
+desc 'Run metadata_lint, lint, validate, spec and Rake tests.'
+task :integration_test do
+  [:metadata_lint, :lint, :validate, :spec].each do |test|
+    Rake::Task[test].invoke
+  end
+  Rake::Task['kitchen:all'].invoke
+end
+
+begin
+  require 'kitchen/rake_tasks'
+  Kitchen::RakeTasks.new
+rescue LoadError
+  puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
+end

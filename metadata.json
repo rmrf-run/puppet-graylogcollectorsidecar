@@ -13,7 +13,7 @@
       "version_requirement": ">= 1.0.0"
     },
     {
-      "name": "reidmv/yamlfile",
+      "name": "reidmv-yamlfile",
       "version_requirement": ">= 0.2.0"
     },
     {
