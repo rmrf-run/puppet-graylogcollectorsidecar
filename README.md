@@ -1,5 +1,5 @@
 # dodevops/graylogcollectorsidecar
-[![Travis](https://img.shields.io/travis/dodevops/puppet-graylogcollectorsidecar)](https://travis-ci.org/dodevops/puppet-graylogcollectorsidecar)
+[![Travis](https://img.shields.io/travis/dodevops/puppet-graylogcollectorsidecar.svg)](https://github.com/dodevops/puppet-graylogcollectorsidecar)
 
 #### Table of Contents
 
@@ -22,6 +22,7 @@ To install the graylog collector sidecar, simply configure the class:
 ```puppet
 class { 'graylogcollectorsidecar':
   api_url => 'http://graylog.example.com:9000/api',
+  version => '0.1.0-beta.3',
   tags => [ 'apache.accesslog' ]
 }
 ```
@@ -30,6 +31,7 @@ Or using hiera:
 
 ```yaml
 graylogcollectorsidecar::api_url: "http://graylog.example.com:9000/api"
+graylogcollectorsidecar::version: "0.1.0-beta.3"
 graylogcollectorsidecar::tags:
     - apache.accesslog
 ```
