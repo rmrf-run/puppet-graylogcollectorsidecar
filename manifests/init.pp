@@ -29,16 +29,34 @@
 class graylogcollectorsidecar (
   $api_url,
   $tags,
-  $version = 'latest'
+  $update_interval   = undef,
+  $tls_skip_verify   = undef,
+  $send_status       = undef,
+  $list_log_files    = undef,
+  $node_id           = undef,
+  $collector_id      = undef,
+  $log_path          = undef,
+  $log_rotation_time = undef,
+  $log_max_age       = undef,
+  $version           = 'latest'
 ) {
 
   case $::osfamily {
     'Debian': {
       class {
         'graylogcollectorsidecar::dist::debian':
-          version => $version,
-          api_url => $api_url,
-          tags    => $tags
+          version           => $version,
+          api_url           => $api_url,
+          tags              => $tags,
+          update_interval   => $update_interval,
+          tls_skip_verify   => $tls_skip_verify,
+          send_status       => $send_status,
+          list_log_files    => $list_log_files,
+          node_id           => $node_id,
+          collector_id      => $collector_id,
+          log_path          => $log_path,
+          log_rotation_time => $log_rotation_time,
+          log_max_age       => $log_max_age
       }
     }
     default: {

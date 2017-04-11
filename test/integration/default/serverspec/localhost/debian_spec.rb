@@ -8,6 +8,7 @@ if ['debian', 'ubuntu'].include?(os[:family])
     it { should exist }
     it { should be_file }
     it { should contain('TESTTAG') }
+    it { should contain('tls_skip_verify: true')}
   end
 
   # Check service

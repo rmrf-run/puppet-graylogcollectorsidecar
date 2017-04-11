@@ -1,8 +1,9 @@
 class {
   'graylogcollectorsidecar':
-    api_url => 'https://graylog.company.com',
-    version => '0.1.0-beta.2',
-    tags    => [
+    api_url         => 'https://graylog.company.com',
+    version         => '0.1.0',
+    tags            => [
       'TESTTAG'
-    ]
+    ],
+    tls_skip_verify => true
 }
