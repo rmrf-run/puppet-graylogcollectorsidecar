@@ -38,6 +38,7 @@ class graylogcollectorsidecar (
   $log_path          = undef,
   $log_rotation_time = undef,
   $log_max_age       = undef,
+  $backends          = undef,
   $version           = 'latest'
 ) {
 
@@ -56,7 +57,8 @@ class graylogcollectorsidecar (
           collector_id      => $collector_id,
           log_path          => $log_path,
           log_rotation_time => $log_rotation_time,
-          log_max_age       => $log_max_age
+          log_max_age       => $log_max_age,
+          backends          => $backends
       }
     }
     default: {

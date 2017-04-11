@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-if ['debian', 'ubuntu'].include?(os[:family])
+if %w[debian ubuntu].include?(os[:family])
 
   # Check configuration
 
@@ -8,9 +8,10 @@ if ['debian', 'ubuntu'].include?(os[:family])
     it { should exist }
     it { should be_file }
     it { should contain('TESTTAG') }
-    it { should contain('tls_skip_verify: true')}
-    it { should contain('log_max_age: 4711')}
-    it { should contain('log_rotation_time: 86400')}
+    its(:content_as_yaml) { should include('tls_skip_verify' => true) }
+    its(:content_as_yaml) { should include('log_max_age' => 4711) }
+    its(:content_as_yaml) { should include('log_rotation_time' => 86400) }
+    its(:content_as_yaml) { should include('backends') }
   end
 
   # Check service

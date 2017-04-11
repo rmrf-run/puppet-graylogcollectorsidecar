@@ -36,6 +36,7 @@ describe 'graylogcollectorsidecar' do
     it { should contain_yaml_setting('sidecar_set_tags') }
     it { should contain_yaml_setting('sidecar_set_log_path') }
     it { should_not contain_yaml_setting('sidecar_set_list_log_files') }
+    it { should contain_yaml_setting('sidecar_set_backends')}
 
   end
 

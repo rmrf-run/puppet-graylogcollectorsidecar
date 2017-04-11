@@ -12,6 +12,7 @@ class graylogcollectorsidecar::dist::debian (
   $log_path          = undef,
   $log_rotation_time = undef,
   $log_max_age       = undef,
+  $backends          = undef,
   $version           = 'latest'
 ) {
 
@@ -59,6 +60,24 @@ class graylogcollectorsidecar::dist::debian (
     '/var/log/graylog/collector-sidecar'
   )
 
+  $_backends = pick(
+    $backends,
+    [
+      {
+        name => 'nxlog',
+        enabled => false,
+        binary_path => '/usr/bin/nxlog',
+        configuration_path => '/etc/graylog/collector-sidecar/generated/nxlog.conf'
+      },
+      {
+        name => 'filebeat',
+        enabled => true,
+        binary_path => '/usr/bin/filebeat',
+        configuration_path => '/etc/graylog/collector-sidecar/generated/filebeat.yml'
+      }
+    ]
+  )
+
   class { 'graylogcollectorsidecar::configure':
     sidecar_yaml_file => '/etc/graylog/collector-sidecar/collector_sidecar.yml',
     api_url           => $api_url,
@@ -71,7 +90,8 @@ class graylogcollectorsidecar::dist::debian (
     collector_id      => $_collector_id,
     log_path          => $_log_path,
     log_rotation_time => $log_rotation_time,
-    log_max_age       => $log_max_age
+    log_max_age       => $log_max_age,
+    backends          => $_backends
   }
 
   # Start the service

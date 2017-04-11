@@ -10,7 +10,8 @@ class graylogcollectorsidecar::configure (
   $collector_id,
   $log_path,
   $log_rotation_time,
-  $log_max_age
+  $log_max_age,
+  $backends
 ) {
 
   yaml_setting {
@@ -125,6 +126,15 @@ class graylogcollectorsidecar::configure (
         target => $sidecar_yaml_file,
         key    => 'log_path',
         value  => $log_path
+    } ~> Service['sidecar']
+  }
+
+  if ($backends) {
+    yaml_setting {
+      'sidecar_set_backends':
+        target => $sidecar_yaml_file,
+        key    => 'backends',
+        value  => $backends
     } ~> Service['sidecar']
   }
 

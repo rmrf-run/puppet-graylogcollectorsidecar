@@ -46,7 +46,7 @@ graylogcollectorsidecar::tags:
 | api_url | Graylog server api url (e.g. http://graylog.example.com:9000/api) |
 | tags | An array of tags that the collector should be set up with |
 
-Additionally, all other parameters besides "backends" as noted in the
+Additionally, all other parameters as noted in the
 [collector sidecar documentation](https://github.com/Graylog2/collector-sidecar/tree/cc9ce41be9bd571ddb3517533aca1026e7cdd298#configuration)
  can be specified.
 
