@@ -12,6 +12,7 @@ class graylogcollectorsidecar::configure (
   $log_rotation_time,
   $log_max_age
 ) {
+
   yaml_setting {
     'sidecar_set_server':
       target => $sidecar_yaml_file,
@@ -26,33 +27,70 @@ class graylogcollectorsidecar::configure (
       value  => $tags
   }
 
-  if ($update_interval) {
-    yaml_setting {
-      'sidecar_set_update_interval':
-        target => $sidecar_yaml_file,
-        key    => 'update_interval',
-        type   => 'integer',
-        value  => $update_interval
-    }
-  }
+  # Set defaults
 
-  if ($tls_skip_verify) {
-    yaml_setting {
-      'sidecar_set_tls_skip_verify':
-        target => $sidecar_yaml_file,
-        key    => 'tls_skip_verify',
-        value  => $tls_skip_verify
-    }
-  }
+  $_update_interval = pick(
+    $update_interval,
+    10
+  )
 
-  if ($send_status) {
-    yaml_setting {
-      'sidecar_set_send_status':
-        target => $sidecar_yaml_file,
-        key    => 'send_status',
-        value  => $send_status
-    }
-  }
+  $_tls_skip_verify = pick(
+    $tls_skip_verify,
+    false
+  )
+
+  $_send_status = pick(
+    $send_status,
+    true
+  )
+
+  $_log_rotation_time = pick(
+    $log_rotation_time,
+    86400
+  )
+
+  $_log_max_age = pick(
+    $log_max_age,
+    604800
+  )
+
+  yaml_setting {
+    'sidecar_set_update_interval':
+      target => $sidecar_yaml_file,
+      key    => 'update_interval',
+      type   => 'integer',
+      value  => $_update_interval
+  } ~> Service['sidecar']
+
+  yaml_setting {
+    'sidecar_set_tls_skip_verify':
+      target => $sidecar_yaml_file,
+      key    => 'tls_skip_verify',
+      value  => $_tls_skip_verify
+  } ~> Service['sidecar']
+
+  yaml_setting {
+    'sidecar_set_send_status':
+      target => $sidecar_yaml_file,
+      key    => 'send_status',
+      value  => $_send_status
+  } ~> Service['sidecar']
+
+  yaml_setting {
+    'sidecar_set_log_rotation_time':
+      target => $sidecar_yaml_file,
+      key    => 'log_rotation_time',
+      type   => 'integer',
+      value  => $_log_rotation_time
+  } ~> Service['sidecar']
+
+  yaml_setting {
+    'sidecar_set_log_max_age':
+      target => $sidecar_yaml_file,
+      key    => 'log_max_age',
+      type   => 'integer',
+      value  => $_log_max_age
+  } ~> Service['sidecar']
 
   if ($list_log_files) {
     yaml_setting {
@@ -60,7 +98,7 @@ class graylogcollectorsidecar::configure (
         target => $sidecar_yaml_file,
         key    => 'list_log_files',
         value  => $list_log_files
-    }
+    } ~> Service['sidecar']
   }
 
   if ($node_id) {
@@ -69,7 +107,7 @@ class graylogcollectorsidecar::configure (
         target => $sidecar_yaml_file,
         key    => 'node_id',
         value  => $node_id
-    }
+    } ~> Service['sidecar']
   }
 
   if ($collector_id) {
@@ -78,7 +116,7 @@ class graylogcollectorsidecar::configure (
         target => $sidecar_yaml_file,
         key    => 'collector_id',
         value  => $collector_id
-    }
+    } ~> Service['sidecar']
   }
 
   if ($log_path) {
@@ -87,27 +125,7 @@ class graylogcollectorsidecar::configure (
         target => $sidecar_yaml_file,
         key    => 'log_path',
         value  => $log_path
-    }
-  }
-
-  if ($log_rotation_time) {
-    yaml_setting {
-      'sidecar_set_log_rotation_time':
-        target => $sidecar_yaml_file,
-        key    => 'log_rotation_time',
-        type   => 'integer',
-        value  => $log_rotation_time
-    }
-  }
-
-  if ($log_max_age) {
-    yaml_setting {
-      'sidecar_set_log_max_age':
-        target => $sidecar_yaml_file,
-        key    => 'log_max_age',
-        type   => 'integer',
-        value  => $log_max_age
-    }
+    } ~> Service['sidecar']
   }
 
 }

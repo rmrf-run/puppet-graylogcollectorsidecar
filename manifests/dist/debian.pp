@@ -49,6 +49,16 @@ class graylogcollectorsidecar::dist::debian (
 
   # Configure it
 
+  $_collector_id = pick(
+    $collector_id,
+    'file:/etc/graylog/collector-sidecar/collector-id'
+  )
+
+  $_log_path = pick(
+    $log_path,
+    '/var/log/graylog/collector-sidecar'
+  )
+
   class { 'graylogcollectorsidecar::configure':
     sidecar_yaml_file => '/etc/graylog/collector-sidecar/collector_sidecar.yml',
     api_url           => $api_url,
@@ -58,8 +68,8 @@ class graylogcollectorsidecar::dist::debian (
     send_status       => $send_status,
     list_log_files    => $list_log_files,
     node_id           => $node_id,
-    collector_id      => $collector_id,
-    log_path          => $log_path,
+    collector_id      => $_collector_id,
+    log_path          => $_log_path,
     log_rotation_time => $log_rotation_time,
     log_max_age       => $log_max_age
   }
