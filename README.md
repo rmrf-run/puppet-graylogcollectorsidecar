@@ -52,6 +52,16 @@ Additionally, all other parameters besides "backends" as noted in the
 
 ## Limitations
 
+This module uses the githubreleases module to download the graylog distribution package
+from Github. However, Github imposes a [rate limiting](https://developer.github.com/v3/#rate-limiting)
+on unauthenticated requests, which the module does (currently, this module doesn't
+allow setting Github credentials).
+
+So if you have a rather large deployment using this module, the rate limit might fail
+the deployment. If so, you'll have to wait for the Rate limit to be reset.
+
+If this is a constant pain, please [open an issue](https://github.com/dodevops/puppet-graylogcollectorsidecar/issues).
+
 OS compatibility:
 
 * Ubuntu/Debian

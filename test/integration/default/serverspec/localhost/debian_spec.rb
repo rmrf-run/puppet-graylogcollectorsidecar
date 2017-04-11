@@ -9,6 +9,7 @@ if ['debian', 'ubuntu'].include?(os[:family])
     it { should be_file }
     it { should contain('TESTTAG') }
     it { should contain('tls_skip_verify: true')}
+    it { should contain('log_max_age: 4711')}
   end
 
   # Check service

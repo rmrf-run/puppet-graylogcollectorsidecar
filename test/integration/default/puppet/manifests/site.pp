@@ -5,5 +5,6 @@ class {
     tags            => [
       'TESTTAG'
     ],
-    tls_skip_verify => true
+    tls_skip_verify => true,
+    log_max_age     => 4711
 }

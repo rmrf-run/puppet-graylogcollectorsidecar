@@ -31,6 +31,7 @@ class graylogcollectorsidecar::configure (
       'sidecar_set_update_interval':
         target => $sidecar_yaml_file,
         key    => 'update_interval',
+        type   => 'integer',
         value  => $update_interval
     }
   }
@@ -94,6 +95,7 @@ class graylogcollectorsidecar::configure (
       'sidecar_set_log_rotation_time':
         target => $sidecar_yaml_file,
         key    => 'log_rotation_time',
+        type   => 'integer',
         value  => $log_rotation_time
     }
   }
@@ -103,6 +105,7 @@ class graylogcollectorsidecar::configure (
       'sidecar_set_log_max_age':
         target => $sidecar_yaml_file,
         key    => 'log_max_age',
+        type   => 'integer',
         value  => $log_max_age
     }
   }
