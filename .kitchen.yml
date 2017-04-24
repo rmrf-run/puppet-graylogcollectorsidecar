@@ -26,3 +26,11 @@ platforms:
 suites:
   - name: default
   - name: hiera
+  - name: existinginstall
+    provisioner:
+        name: puppet_apply
+        custom_pre_apply_command: "sudo cp /tmp/kitchen/files/graylog-collector-sidecar /usr/bin; sudo chmod +x /usr/bin/graylog-collector-sidecar"
+  - name: oldinstall
+    provisioner:
+        name: puppet_apply
+        custom_pre_apply_command: "sudo cp /tmp/kitchen/files/graylog-collector-sidecar /usr/bin; sudo chmod +x /usr/bin/graylog-collector-sidecar"

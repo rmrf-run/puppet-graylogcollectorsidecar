@@ -7,7 +7,8 @@ describe 'graylogcollectorsidecar' do
     let(:facts) {
       {
           :osfamily => 'Debian',
-          :architecture => 'amd64'
+          :architecture => 'amd64',
+          :installed_sidecar_version => ''
       }
     }
 
@@ -45,7 +46,8 @@ describe 'graylogcollectorsidecar' do
     let(:facts) {
       {
           :osfamily => 'Debian',
-          :architecture => 'i386'
+          :architecture => 'i386',
+          :installed_sidecar_version => ''
       }
     }
 

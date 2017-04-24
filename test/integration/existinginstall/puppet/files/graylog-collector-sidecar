@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Graylog Collector Sidecar version 0.1.0 (e14968e) [go1.7.4/amd64]"
+exit 0
