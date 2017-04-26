@@ -9,8 +9,7 @@ Facter.add(:installed_sidecar_version) do
 
       version = /^[^0-9]*([0-9.]*).*/.match(version_string)[1]
     rescue Facter::Core::Execution::ExecutionFailure => e
-      Facter.log_exception(e)
-      Facter.debug("Failed to run #{command}. Returning nothing.")
+      Facter.debug("Failed to run #{command} (#{e}). Returning nothing.")
     end
 
     Facter.debug("Found version #{version}")
