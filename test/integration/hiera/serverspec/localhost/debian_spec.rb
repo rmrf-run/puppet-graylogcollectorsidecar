@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-if ['debian', 'ubuntu'].include?(os[:family])
+if %w[debian].include?(os[:family])
 
   # Check configuration
 

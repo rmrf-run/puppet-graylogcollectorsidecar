@@ -64,4 +64,5 @@ If this is a constant pain, please [open an issue](https://github.com/dodevops/p
 
 OS compatibility:
 
-* Ubuntu/Debian
+* Debian-Family (Ubuntu, Debian)
+* RedHat-Family (RHEL, CentOS)
