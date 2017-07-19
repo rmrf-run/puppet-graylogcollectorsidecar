@@ -48,3 +48,7 @@ suites:
     provisioner:
         name: puppet_apply
         custom_pre_apply_command: "sudo cp /tmp/kitchen/files/graylog-collector-sidecar /usr/bin; sudo chmod +x /usr/bin/graylog-collector-sidecar"
+  - name: changesettings
+    provisioner:
+        name: puppet_apply
+        custom_pre_apply_comand: "sudo bash /tmp/kitchen/files/prepare.sh"
