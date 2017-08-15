@@ -3,6 +3,7 @@ driver:
   name: docker
   test_base_path: test
   use_sudo: false # because of https://github.com/test-kitchen/kitchen-docker/issues/207
+  memory: 2G
 
 provisioner:
   name: puppet_apply
@@ -10,6 +11,7 @@ provisioner:
   puppet_debug: true
 
 platforms:
+
   - name: ubuntu-16.04
     provisioner:
       name: puppet_apply
