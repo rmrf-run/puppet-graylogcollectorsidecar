@@ -1,6 +1,7 @@
 require 'spec_helper'
+require 'socket'
 
-if %w[debian].include?(os[:family])
+if %w[ubuntu].include?(os[:family])
 
   # Check configuration
 
@@ -12,6 +13,7 @@ if %w[debian].include?(os[:family])
     its(:content_as_yaml) { should include('log_max_age' => 4711) }
     its(:content_as_yaml) { should include('log_rotation_time' => 86400) }
     its(:content_as_yaml) { should include('backends') }
+    its(:content_as_yaml) { should include('node_id' => Socket.gethostname) }
   end
 
   # Check service

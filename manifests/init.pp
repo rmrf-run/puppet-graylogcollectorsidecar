@@ -42,6 +42,8 @@ class graylogcollectorsidecar (
   $version           = 'latest'
 ) {
 
+  $_node_id = pick($node_id, $::hostname)
+
   case $::osfamily {
     'Debian': {
       class {
@@ -53,7 +55,7 @@ class graylogcollectorsidecar (
           tls_skip_verify   => $tls_skip_verify,
           send_status       => $send_status,
           list_log_files    => $list_log_files,
-          node_id           => $node_id,
+          node_id           => $_node_id,
           collector_id      => $collector_id,
           log_path          => $log_path,
           log_rotation_time => $log_rotation_time,
@@ -71,7 +73,7 @@ class graylogcollectorsidecar (
           tls_skip_verify   => $tls_skip_verify,
           send_status       => $send_status,
           list_log_files    => $list_log_files,
-          node_id           => $node_id,
+          node_id           => $_node_id,
           collector_id      => $collector_id,
           log_path          => $log_path,
           log_rotation_time => $log_rotation_time,
