@@ -35,8 +35,8 @@ class graylogcollectorsidecar::dist::debian (
         release           => $version,
         is_tag            => $is_tag,
         asset             => true,
-        asset_filepattern => "${::architecture}\\.rpm",
-        target            => '/tmp/collector-sidecar.rpm'
+        asset_filepattern => "${::architecture}\\.deb",
+        target            => '/tmp/collector-sidecar.deb'
     }
 
     # Install the package
