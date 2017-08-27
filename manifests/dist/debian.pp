@@ -21,15 +21,22 @@ class graylogcollectorsidecar::dist::debian (
   } else {
     # Download package
 
+    # Versions have to be downloaded using tags, the latest release not (https://github.com/dodevops/puppet-graylogcollectorsidecar/issues/2)
+    if $version == 'latest' {
+      $is_tag = false
+    } else {
+      $is_tag = true
+    }
+
     githubreleases::download {
       'get_sidecar_package':
         author            => 'Graylog2',
         repository        => 'collector-sidecar',
         release           => $version,
-        is_tag            => true,
+        is_tag            => $is_tag,
         asset             => true,
-        asset_filepattern => "${::architecture}\\.deb",
-        target            => '/tmp/collector-sidecar.deb'
+        asset_filepattern => "${::architecture}\\.rpm",
+        target            => '/tmp/collector-sidecar.rpm'
     }
 
     # Install the package
