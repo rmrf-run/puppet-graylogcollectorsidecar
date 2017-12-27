@@ -36,7 +36,7 @@ class graylogcollectorsidecar::dist::redhat (
         is_tag            => $is_tag,
         asset             => true,
         asset_filepattern => "${::architecture}\\.rpm",
-        target            => '/tmp/collector-sidecar.rpm'
+        target            => '/tmp/collector-sidecar.rpm',
     }
 
     # Install the package
@@ -46,7 +46,7 @@ class graylogcollectorsidecar::dist::redhat (
         ensure   => 'installed',
         name     => 'collector-sidecar',
         provider => 'rpm',
-        source   => '/tmp/collector-sidecar.rpm'
+        source   => '/tmp/collector-sidecar.rpm',
     }
 
     # Create a sidecar service
@@ -66,7 +66,7 @@ class graylogcollectorsidecar::dist::redhat (
       'install_sidecar_service':
         creates => $check_creates,
         command => 'graylog-collector-sidecar -service install',
-        path    => [ '/usr/bin', '/bin' ]
+        path    => [ '/usr/bin', '/bin' ],
     }
 
     Githubreleases::Download['get_sidecar_package']
@@ -97,19 +97,19 @@ class graylogcollectorsidecar::dist::redhat (
         enabled            => false,
         binary_path        => '/usr/bin/nxlog',
         configuration_path =>
-        '/etc/graylog/collector-sidecar/generated/nxlog.conf'
+        '/etc/graylog/collector-sidecar/generated/nxlog.conf',
       },
       {
         name               => 'filebeat',
         enabled            => true,
         binary_path        => '/usr/bin/filebeat',
         configuration_path =>
-        '/etc/graylog/collector-sidecar/generated/filebeat.yml'
-      }
+        '/etc/graylog/collector-sidecar/generated/filebeat.yml',
+      },
     ]
   )
 
-  class { 'graylogcollectorsidecar::configure':
+  class { '::graylogcollectorsidecar::configure':
     sidecar_yaml_file =>
       '/etc/graylog/collector-sidecar/collector_sidecar.yml',
     api_url           => $api_url,
@@ -123,7 +123,7 @@ class graylogcollectorsidecar::dist::redhat (
     log_path          => $_log_path,
     log_rotation_time => $log_rotation_time,
     log_max_age       => $log_max_age,
-    backends          => $_backends
+    backends          => $_backends,
   } ~> Service['sidecar']
 
   # Start the service
@@ -131,7 +131,7 @@ class graylogcollectorsidecar::dist::redhat (
   service {
     'sidecar':
       ensure => running,
-      name   => 'collector-sidecar'
+      name   => 'collector-sidecar',
   }
 
 }

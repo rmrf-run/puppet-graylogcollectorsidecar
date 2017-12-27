@@ -47,7 +47,7 @@ class graylogcollectorsidecar (
   case $::osfamily {
     'Debian': {
       class {
-        'graylogcollectorsidecar::dist::debian':
+        '::graylogcollectorsidecar::dist::debian':
           version           => $version,
           api_url           => $api_url,
           tags              => $tags,
@@ -60,12 +60,12 @@ class graylogcollectorsidecar (
           log_path          => $log_path,
           log_rotation_time => $log_rotation_time,
           log_max_age       => $log_max_age,
-          backends          => $backends
+          backends          => $backends,
       }
     }
     'RedHat': {
       class {
-        'graylogcollectorsidecar::dist::redhat':
+        '::graylogcollectorsidecar::dist::redhat':
           version           => $version,
           api_url           => $api_url,
           tags              => $tags,
@@ -78,7 +78,7 @@ class graylogcollectorsidecar (
           log_path          => $log_path,
           log_rotation_time => $log_rotation_time,
           log_max_age       => $log_max_age,
-          backends          => $backends
+          backends          => $backends,
       }
     }
     default: {
