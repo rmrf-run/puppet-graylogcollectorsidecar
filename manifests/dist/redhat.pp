@@ -51,9 +51,20 @@ class graylogcollectorsidecar::dist::redhat (
 
     # Create a sidecar service
 
+    case downcase($::operatingsystemmajrelease) {
+
+      '7': {
+        $check_creates = '/etc/systemd/system/collector-sidecar.service'
+      }
+
+      default: {
+        $check_creates = '/etc/init/collector-sidecar.conf'
+      }
+    }
+
     exec {
       'install_sidecar_service':
-        creates => '/etc/init/collector-sidecar.conf',
+        creates => $check_creates,
         command => 'graylog-collector-sidecar -service install',
         path    => [ '/usr/bin', '/bin' ]
     }
