@@ -1,6 +1,6 @@
 {
   "name": "dodevops-graylogcollectorsidecar",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Dennis Ploeger <develop@dieploegers.de>",
   "summary": "Installs and configures the graylog collector sidecar",
   "license": "MIT",
@@ -56,7 +56,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": "< 6.0.0"
+      "version_requirement": ">= 4.0.0"
     }
   ],
   "data_provider": null
