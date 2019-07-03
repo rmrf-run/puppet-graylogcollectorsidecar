@@ -27,19 +27,22 @@
 #    }
 #
 class graylogcollectorsidecar (
-  $api_url,
-  $tags,
-  $update_interval   = undef,
-  $tls_skip_verify   = undef,
-  $send_status       = undef,
-  $list_log_files    = undef,
-  $node_id           = undef,
-  $collector_id      = undef,
-  $log_path          = undef,
-  $log_rotation_time = undef,
-  $log_max_age       = undef,
-  $backends          = undef,
-  $version           = 'latest'
+  String $api_url,
+  String $tags,
+  String $username,
+  String $password,
+  Boolean $use_auth          = true,
+  Integer $update_interval   = undef,
+  Boolean $tls_skip_verify   = undef,
+  Boolean $send_status       = undef,
+  String $list_log_files     = undef,
+  String $node_id            = undef,
+  String $collector_id       = undef,
+  String $log_path           = undef,
+  Integer $log_rotation_time = undef,
+  Integer $log_max_age       = undef,
+  String $backends           = undef,
+  String $version            = 'latest',
 ) {
 
   $_node_id = pick($node_id, $::hostname)
@@ -61,6 +64,9 @@ class graylogcollectorsidecar (
           log_rotation_time => $log_rotation_time,
           log_max_age       => $log_max_age,
           backends          => $backends,
+          use_auth          => $use_auth,
+          username          => $username,
+          password          => $password,
       }
     }
     'RedHat': {
@@ -79,6 +85,9 @@ class graylogcollectorsidecar (
           log_rotation_time => $log_rotation_time,
           log_max_age       => $log_max_age,
           backends          => $backends,
+          use_auth          => $use_auth,
+          username          => $username,
+          password          => $password,
       }
     }
     default: {

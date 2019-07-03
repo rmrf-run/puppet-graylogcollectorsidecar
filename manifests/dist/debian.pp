@@ -1,19 +1,22 @@
 # Debian-specific handling
 
 class graylogcollectorsidecar::dist::debian (
-  $api_url,
-  $tags,
-  $update_interval   = undef,
-  $tls_skip_verify   = undef,
-  $send_status       = undef,
-  $list_log_files    = undef,
-  $node_id           = undef,
-  $collector_id      = undef,
-  $log_path          = undef,
-  $log_rotation_time = undef,
-  $log_max_age       = undef,
-  $backends          = undef,
-  $version           = 'latest'
+  String $api_url,
+  String $tags,
+  String $username,
+  String $password,
+  Boolean $use_auth          = true,
+  Integer $update_interval   = undef,
+  Boolean $tls_skip_verify   = undef,
+  Boolean $send_status       = undef,
+  String $list_log_files     = undef,
+  String $node_id            = undef,
+  String $collector_id       = undef,
+  String $log_path           = undef,
+  Integer $log_rotation_time = undef,
+  Integer $log_max_age       = undef,
+  String $backends           = undef,
+  String $version            = 'latest',
 ) {
 
   if ($::installed_sidecar_version == $version) {
@@ -37,6 +40,9 @@ class graylogcollectorsidecar::dist::debian (
         asset             => true,
         asset_filepattern => "${::architecture}\\.deb",
         target            => '/tmp/collector-sidecar.deb',
+        use_auth          => $use_auth,
+        username          => $username,
+        password          => $password,
     }
 
     # Install the package
