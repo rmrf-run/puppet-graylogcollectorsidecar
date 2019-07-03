@@ -5,7 +5,7 @@ class graylogcollectorsidecar::dist::redhat (
   String $tags,
   String $username,
   String $password,
-  Boolean $use_auth          = true,
+  Boolean $use_auth,
   Integer $update_interval   = undef,
   Boolean $tls_skip_verify   = undef,
   Boolean $send_status       = undef,
