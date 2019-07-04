@@ -2,7 +2,7 @@
 
 class graylogcollectorsidecar::dist::redhat (
   String $api_url,
-  List[String] $tags,
+  Array[String] $tags,
   String $username,
   String $password,
   String $version                      = 'latest',
