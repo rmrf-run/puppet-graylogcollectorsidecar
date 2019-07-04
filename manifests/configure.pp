@@ -2,6 +2,7 @@ class graylogcollectorsidecar::configure (
   String $api_url,
   Array[String] $tags,
   String $version,
+  Optional[String] $sidecar_yaml_file,
   Optional[Integer] $update_interval,
   Optional[Boolean] $tls_skip_verify,
   Optional[Boolean] $send_status,
@@ -11,7 +12,7 @@ class graylogcollectorsidecar::configure (
   Optional[String] $log_path,
   Optional[String] $log_rotation_time,
   Optional[String] $log_max_age,
-  Optional[String] $backends,
+  Optional[Hash[String]] $backends,
 ) {
 
   yaml_setting {
