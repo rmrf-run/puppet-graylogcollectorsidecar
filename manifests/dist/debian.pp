@@ -16,7 +16,7 @@ class graylogcollectorsidecar::dist::debian (
   Optional[String] $log_path           = undef,
   Optional[String] $log_rotation_time  = undef,
   Optional[String] $log_max_age        = undef,
-  Optional[String] $backends           = undef,
+  Optional[Tuple] $backends            = undef,
 ) {
 
   if ($::installed_sidecar_version == $version) {
