@@ -12,7 +12,7 @@ class graylogcollectorsidecar::configure (
   Optional[String] $log_path,
   Optional[String] $log_rotation_time,
   Optional[String] $log_max_age,
-  Optional[Hash[String]] $backends,
+  Optional[Hash] $backends,
 ) {
 
   yaml_setting {
