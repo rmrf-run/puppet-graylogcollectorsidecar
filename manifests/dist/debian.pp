@@ -2,7 +2,7 @@
 
 class graylogcollectorsidecar::dist::debian (
   String $api_url,
-  Array[String] $tags,
+  List[String] $tags,
   String $username,
   String $password,
   String $version                      = 'latest',

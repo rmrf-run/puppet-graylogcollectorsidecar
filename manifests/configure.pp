@@ -1,6 +1,6 @@
 class graylogcollectorsidecar::configure (
   String $api_url,
-  Array[String] $tags,
+  List[String] $tags,
   String $version,
   Optional[Integer] $update_interval,
   Optional[Boolean] $tls_skip_verify,
