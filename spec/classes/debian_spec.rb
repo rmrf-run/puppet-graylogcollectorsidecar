@@ -19,7 +19,10 @@ describe 'graylogcollectorsidecar' do
           :log_path => '/var/log/graylog',
           :tags => [
               'default'
-          ]
+          ],
+          :use_auth => ENV.has_key?('TEST_USERNAME'),
+          :username => ENV['TEST_USERNAME'],
+          :password => ENV['TEST_PASSWORD'],
       }
     }
 
@@ -57,7 +60,10 @@ describe 'graylogcollectorsidecar' do
           :api_url => 'http://graylog.example.com',
           :tags => [
               'default'
-          ]
+          ],
+          :use_auth => ENV.has_key?('TEST_USERNAME'),
+          :username => ENV['TEST_USERNAME'],
+          :password => ENV['TEST_PASSWORD'],
       }
     }
 

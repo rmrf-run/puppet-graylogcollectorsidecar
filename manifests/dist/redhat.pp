@@ -13,7 +13,10 @@ class graylogcollectorsidecar::dist::redhat (
   $log_rotation_time = undef,
   $log_max_age       = undef,
   $backends          = undef,
-  $version           = 'latest'
+  $version           = 'latest',
+  $use_auth          = false,
+  $username          = undef,
+  $password          = undef,
 ) {
 
   if ($::installed_sidecar_version == $version) {
@@ -37,6 +40,9 @@ class graylogcollectorsidecar::dist::redhat (
         asset             => true,
         asset_filepattern => "${::architecture}\\.rpm",
         target            => '/tmp/collector-sidecar.rpm',
+        use_auth          => $use_auth,
+        username          => $username,
+        password          => $password,
     }
 
     # Install the package

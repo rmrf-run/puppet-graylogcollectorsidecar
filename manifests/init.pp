@@ -39,7 +39,10 @@ class graylogcollectorsidecar (
   $log_rotation_time = undef,
   $log_max_age       = undef,
   $backends          = undef,
-  $version           = 'latest'
+  $version           = 'latest',
+  $use_auth          = false,
+  $username          = undef,
+  $password          = undef,
 ) {
 
   $_node_id = pick($node_id, $::hostname)
