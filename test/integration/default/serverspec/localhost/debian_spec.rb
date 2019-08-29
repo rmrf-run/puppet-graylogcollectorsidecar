@@ -1,26 +1,26 @@
 require 'spec_helper'
 require 'socket'
 
-if %w[ubuntu].include?(os[:family])
+if ['ubuntu'].include?(os[:family])
 
   # Check configuration
 
   describe file('/etc/graylog/collector-sidecar/collector_sidecar.yml') do
-    it { should exist }
-    it { should be_file }
-    it { should contain('TESTTAG') }
-    its(:content_as_yaml) { should include('tls_skip_verify' => true) }
-    its(:content_as_yaml) { should include('log_max_age' => 4711) }
-    its(:content_as_yaml) { should include('log_rotation_time' => 86400) }
-    its(:content_as_yaml) { should include('backends') }
-    its(:content_as_yaml) { should include('node_id' => Socket.gethostname) }
+    it { is_expected.to exist }
+    it { is_expected.to be_file }
+    it { is_expected.to contain('TESTTAG') }
+    its(:content_as_yaml) { is_expected.to include('tls_skip_verify' => true) }
+    its(:content_as_yaml) { is_expected.to include('log_max_age' => 4711) }
+    its(:content_as_yaml) { is_expected.to include('log_rotation_time' => 86_400) }
+    its(:content_as_yaml) { is_expected.to include('backends') }
+    its(:content_as_yaml) { is_expected.to include('node_id' => Socket.gethostname) }
   end
 
   # Check service
 
   describe service('collector-sidecar') do
-    it { should be_enabled }
-    it { should be_running }
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
   end
 
 end

@@ -1,11 +1,10 @@
 require 'spec_helper'
 
-if %w[ubuntu].include?(os[:family])
+if ['ubuntu'].include?(os[:family])
 
   # Check, that nothing was done
 
   describe file('/tmp/collector-sidecar.deb') do
-    it { should_not exist }
+    it { is_expected.not_to exist }
   end
-
 end
