@@ -1,6 +1,5 @@
 require 'spec_helper'
-Puppet::Util::Log.level = :debug
-Puppet::Util::Log.newdestination(:console)
+
 describe 'graylogcollectorsidecar' do
   use_auth = false
   use_oauth = false
