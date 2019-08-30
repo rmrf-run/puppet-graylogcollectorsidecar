@@ -9,7 +9,10 @@ provisioner:
   name: puppet_apply
   manifest: site.pp
   puppet_debug: true
-
+  custom_facts:
+    GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] %>
+    GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
+    GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
 platforms:
 
   - name: ubuntu-16.04
@@ -42,8 +45,8 @@ platforms:
       privileged: true
     provisioner:
       name: puppet_apply
-      require_puppet_collections: false
-      puppet_yum_repo: "http://yum.puppetlabs.com/puppet5/puppet5-release-el-6.noarch.rpm"
+      require_puppet_collections: true
+      puppet_yum_collections_repo: "https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm"
   - name: centos-7-puppet4
     driver_config:
       image: centos:7

@@ -1,5 +1,4 @@
 forge "https://forgeapi.puppetlabs.com"
 
-mod "puppetlabs/stdlib"
 mod "reidmv/yamlfile"
-mod "dodevops/githubreleases", :git => 'https://github.com/dodevops/puppet-githubreleases'
+mod "dodevops/githubreleases"

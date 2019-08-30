@@ -1,10 +1,28 @@
 require 'spec_helper'
-
+Puppet::Util::Log.level = :debug
+Puppet::Util::Log.newdestination(:console)
 describe 'graylogcollectorsidecar' do
+  use_auth = false
+  use_oauth = false
+  username = ''
+  password = ''
+
+  if ENV['GITHUB_USE_AUTH']
+    use_auth = true
+    username = ENV['GITHUB_USERNAME']
+    password = ENV['GITHUB_PASSWORD']
+  end
+
+  use_oauth = true if ENV['GITHUB_USE_OAUTH']
+
   context 'on Debian/amd64' do
     let(:facts) do
       {
         osfamily: 'Debian',
+        operatingsystem: 'Debian',
+        os: {
+          family: 'Debian',
+        },
         architecture: 'amd64',
         installed_sidecar_version: '',
       }
@@ -18,9 +36,10 @@ describe 'graylogcollectorsidecar' do
         tags: [
           'default',
         ],
-        use_auth: ENV.key?('TEST_USERNAME'),
-        username: ENV['TEST_USERNAME'],
-        password: ENV['TEST_PASSWORD'],
+        use_auth: use_auth,
+        use_oauth: use_oauth,
+        username: username,
+        password: password,
       }
     end
 
@@ -30,7 +49,6 @@ describe 'graylogcollectorsidecar' do
     }
     it { is_expected.to contain_package('graylog-sidecar') }
     it { is_expected.to contain_service('sidecar') }
-    it { is_expected.to contain_class('graylogcollectorsidecar::configure') }
     it {
       is_expected.to contain_yaml_setting('sidecar_set_server').with_value('http://graylog.example.com')
     }
@@ -44,6 +62,10 @@ describe 'graylogcollectorsidecar' do
     let(:facts) do
       {
         osfamily: 'Debian',
+        operatingsystem: 'Debian',
+        os: {
+          family: 'Debian',
+        },
         architecture: 'i386',
         installed_sidecar_version: '',
       }
@@ -56,9 +78,10 @@ describe 'graylogcollectorsidecar' do
         tags: [
           'default',
         ],
-        use_auth: ENV.key?('TEST_USERNAME'),
-        username: ENV['TEST_USERNAME'],
-        password: ENV['TEST_PASSWORD'],
+        use_auth: use_auth,
+        use_oauth: use_oauth,
+        username: username,
+        password: password,
       }
     end
 
@@ -67,6 +90,5 @@ describe 'graylogcollectorsidecar' do
     }
     it { is_expected.to contain_package('graylog-sidecar') }
     it { is_expected.to contain_service('sidecar') }
-    it { is_expected.to contain_class('graylogcollectorsidecar::configure') }
   end
 end

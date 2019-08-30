@@ -1,6 +1,5 @@
 fixtures:
   forge_modules:
-    stdlib: "puppetlabs/stdlib"
     yamlfile: "reidmv/yamlfile"
     filemapper: "puppet/filemapper"
     remote_file: "lwf/remote_file"

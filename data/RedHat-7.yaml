@@ -1,0 +1,1 @@
+graylogcollectorsidecar::service_creates: "/etc/systemd/system/collector-sidecar.service"

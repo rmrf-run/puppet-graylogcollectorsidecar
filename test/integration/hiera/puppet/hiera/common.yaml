@@ -6,3 +6,7 @@ graylogcollectorsidecar::version: "0.1.0"
 graylogcollectorsidecar::tls_skip_verify: true
 graylogcollectorsidecar::tags:
     - TESTTAG
+graylogcollectorsidecar::use_auth: "%{facts.github_use_auth}"
+graylogcollectorsidecar::use_oauth: "%{facts.github_use_oauth}"
+graylogcollectorsidecar::username: '%{facts.github_username}'
+graylogcollectorsidecar::password: '%{facts.github_password}'

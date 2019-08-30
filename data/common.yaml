@@ -1,0 +1,29 @@
+graylogcollectorsidecar::version: "latest"
+graylogcollectorsidecar::use_auth: false
+graylogcollectorsidecar::use_oauth: false
+graylogcollectorsidecar::username: ""
+graylogcollectorsidecar::password: ""
+
+# Configuration defaults
+graylogcollectorsidecar::node_id: "%{facts.networking.hostname}"
+graylogcollectorsidecar::collector_id: "file:/etc/graylog/collector-sidecar/collector-id"
+graylogcollectorsidecar::log_path: "/var/log/graylog/collector-sidecar"
+graylogcollectorsidecar::log_rotation_time: 86400
+graylogcollectorsidecar::log_max_age: 604800
+graylogcollectorsidecar::update_interval: 10
+graylogcollectorsidecar::tls_skip_verify: false
+graylogcollectorsidecar::send_status: true
+graylogcollectorsidecar::backends:
+    -   name: "nxlog"
+        enabled: false
+        binary_path: "/usr/bin/nxlog"
+        configuration_path: "/etc/graylog/collector-sidecar/generated/nxlog.conf"
+    -   name: "filebeat"
+        enabled: true
+        binary_path: "/usr/bin/filebeat"
+        configuration_path: "/etc/graylog/collector-sidecar/generated/filebeat.yml"
+
+# Installation details
+
+graylogcollectorsidecar::service_creates: "/etc/init/collector-sidecar.conf"
+graylogcollectorsidecar::sidecar_yaml_file: "/etc/graylog/collector-sidecar/collector_sidecar.yml"

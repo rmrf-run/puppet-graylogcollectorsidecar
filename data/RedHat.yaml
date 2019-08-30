@@ -1,0 +1,2 @@
+graylogcollectorsidecar::package_suffix: "rpm"
+graylogcollectorsidecar::package_provider: "rpm"

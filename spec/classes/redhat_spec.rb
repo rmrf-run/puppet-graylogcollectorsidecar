@@ -1,13 +1,33 @@
 require 'spec_helper'
 
 describe 'graylogcollectorsidecar' do
+  use_auth = false
+  use_oauth = false
+  username = ''
+  password = ''
+
+  if ENV['GITHUB_USE_AUTH']
+    use_auth = true
+    username = ENV['GITHUB_USERNAME']
+    password = ENV['GITHUB_PASSWORD']
+  end
+
+  use_oauth = true if ENV['GITHUB_USE_OAUTH']
+
   context 'on RedHat/x86_64' do
     let(:facts) do
       {
         osfamily: 'RedHat',
+        operatingsystem: 'RedHat',
+        operatingsystemmajrelease: '7',
+        os: {
+          family: 'RedHat',
+          release: {
+            major: '7',
+          },
+        },
         architecture: 'x86_64',
         installed_sidecar_version: '',
-        operatingsystemmajrelease: '7',
       }
     end
 
@@ -19,9 +39,10 @@ describe 'graylogcollectorsidecar' do
         tags: [
           'default',
         ],
-        use_auth: ENV.key?('TEST_USERNAME'),
-        username: ENV['TEST_USERNAME'],
-        password: ENV['TEST_PASSWORD'],
+        use_auth: use_auth,
+        use_oauth: use_oauth,
+        username: username,
+        password: password,
       }
     end
 
@@ -31,7 +52,6 @@ describe 'graylogcollectorsidecar' do
     }
     it { is_expected.to contain_package('graylog-sidecar') }
     it { is_expected.to contain_service('sidecar') }
-    it { is_expected.to contain_class('graylogcollectorsidecar::configure') }
     it {
       is_expected.to contain_yaml_setting('sidecar_set_server').with_value('http://graylog.example.com')
     }
@@ -46,8 +66,15 @@ describe 'graylogcollectorsidecar' do
       {
         osfamily: 'RedHat',
         architecture: 'i386',
-        installed_sidecar_version: '',
+        operatingsystem: 'RedHat',
         operatingsystemmajrelease: '7',
+        os: {
+          family: 'RedHat',
+          release: {
+            major: '7',
+          },
+        },
+        installed_sidecar_version: '',
       }
     end
 
@@ -58,9 +85,10 @@ describe 'graylogcollectorsidecar' do
         tags: [
           'default',
         ],
-        use_auth: ENV.key?('TEST_USERNAME'),
-        username: ENV['TEST_USERNAME'],
-        password: ENV['TEST_PASSWORD'],
+        use_auth: use_auth,
+        use_oauth: use_oauth,
+        username: username,
+        password: password,
       }
     end
 
@@ -69,6 +97,5 @@ describe 'graylogcollectorsidecar' do
     }
     it { is_expected.to contain_package('graylog-sidecar') }
     it { is_expected.to contain_service('sidecar') }
-    it { is_expected.to contain_class('graylogcollectorsidecar::configure') }
   end
 end

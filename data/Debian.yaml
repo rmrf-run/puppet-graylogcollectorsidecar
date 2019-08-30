@@ -1,0 +1,2 @@
+graylogcollectorsidecar::package_suffix: "deb"
+graylogcollectorsidecar::package_provider: "dpkg"
