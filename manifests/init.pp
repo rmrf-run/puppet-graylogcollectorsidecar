@@ -50,6 +50,11 @@ class graylogcollectorsidecar (
     warning('OS currently not supported by the graylog collector sidecar module')
   }
 
+  $_require_config = $::installed_sidecar_version ? {
+    $version => undef,
+    default => Package['graylog-sidecar']
+  }
+
   if ($::installed_sidecar_version == $version) {
     debug("Already installed sidecard version ${version}")
   } else {
@@ -110,7 +115,7 @@ class graylogcollectorsidecar (
       target  => $sidecar_yaml_file,
       key     => 'server_url',
       value   => $api_url,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -118,7 +123,7 @@ class graylogcollectorsidecar (
       target  => $sidecar_yaml_file,
       key     => 'tags',
       value   => $tags,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   # Set defaults
@@ -129,7 +134,7 @@ class graylogcollectorsidecar (
       key     => 'update_interval',
       type    => 'integer',
       value   => $update_interval,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -137,7 +142,7 @@ class graylogcollectorsidecar (
       target  => $sidecar_yaml_file,
       key     => 'tls_skip_verify',
       value   => $tls_skip_verify,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -145,7 +150,7 @@ class graylogcollectorsidecar (
       target  => $sidecar_yaml_file,
       key     => 'send_status',
       value   => $send_status,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -154,7 +159,7 @@ class graylogcollectorsidecar (
       key     => 'log_rotation_time',
       type    => 'integer',
       value   => $log_rotation_time,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -163,7 +168,7 @@ class graylogcollectorsidecar (
       key     => 'log_max_age',
       type    => 'integer',
       value   => $log_max_age,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -171,7 +176,7 @@ class graylogcollectorsidecar (
       target  => $sidecar_yaml_file,
       key     => 'node_id',
       value   => $node_id,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -179,7 +184,7 @@ class graylogcollectorsidecar (
       target  => $sidecar_yaml_file,
       key     => 'collector_id',
       value   => $collector_id,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -187,7 +192,7 @@ class graylogcollectorsidecar (
       target  => $sidecar_yaml_file,
       key     => 'log_path',
       value   => $log_path,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   yaml_setting {
@@ -195,7 +200,7 @@ class graylogcollectorsidecar (
       target  => $sidecar_yaml_file,
       key     => 'backends',
       value   => $backends,
-      require => Package['graylog-sidecar'],
+      require => $_require_config,
   } ~> Service['sidecar']
 
   if ($list_log_files) {

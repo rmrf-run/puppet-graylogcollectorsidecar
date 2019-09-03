@@ -2,22 +2,13 @@ FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
     adrien-filemapper (1.1.3)
+    dodevops-githubreleases (3.0.1)
+      lwf-remote_file (>= 1.1.3)
     lwf-remote_file (1.1.3)
-    puppetlabs-stdlib (4.16.0)
     reidmv-yamlfile (0.2.0)
       adrien-filemapper (>= 1.1.1)
 
-GIT
-  remote: https://github.com/dodevops/puppet-githubreleases
-  ref: master
-  sha: 3ce59f783d2bef1eca8bffd8a0b6d6b31e80e761
-  specs:
-    dodevops-githubreleases (0.1.2)
-      lwf-remote_file (>= 0)
-      puppetlabs-stdlib (>= 1.0.0)
-
 DEPENDENCIES
   dodevops-githubreleases (>= 0)
-  puppetlabs-stdlib (>= 0)
   reidmv-yamlfile (>= 0)
 
