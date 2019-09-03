@@ -1,75 +1,78 @@
 ---
 driver:
-  name: docker
-  test_base_path: test
-  use_sudo: false # because of https://github.com/test-kitchen/kitchen-docker/issues/207
-  memory: 2G
+    name: docker
+    test_base_path: test
+    use_sudo: false # because of https://github.com/test-kitchen/kitchen-docker/issues/207
+    memory: 2G
 
 provisioner:
-  name: puppet_apply
-  manifest: site.pp
-  puppet_debug: true
-  custom_facts:
-    GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] %>
-    GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
-    GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
+    name: puppet_apply
+    manifest: site.pp
+    puppet_debug: true
+    ignored_paths_from_root:
+        - "spec"
+        - "vendor"
+    custom_facts:
+        GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] %>
+        GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
+        GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
 platforms:
 
-  - name: ubuntu-16.04
-    provisioner:
-      name: puppet_apply
-      puppet_apt_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
-  - name: ubuntu-16.04-puppet4
-    driver_config:
-      image: ubuntu:16.04
-      platform: ubuntu
-    provisioner:
-      name: puppet_apply
-      require_puppet_collections: true
-      puppet_apt_collections_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
-  - name: ubuntu-18.04
-    provisioner:
-      name: puppet_apply
-      puppet_apt_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
-  - name: ubuntu-18.04-puppet4
-    driver_config:
-      image: ubuntu:18.04
-      platform: ubuntu
-    provisioner:
-      name: puppet_apply
-      require_puppet_collections: true
-      puppet_apt_collections_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
-  - name: centos-7
-    driver_config:
-      run_command: /usr/sbin/init
-      privileged: true
-    provisioner:
-      name: puppet_apply
-      require_puppet_collections: true
-      puppet_yum_collections_repo: "https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm"
-  - name: centos-7-puppet4
-    driver_config:
-      image: centos:7
-      platform: centos
-      run_command: /usr/sbin/init
-      privileged: true
-    provisioner:
-      name: puppet_apply
-      require_puppet_collections: true
-      puppet_yum_collections_repo: "https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm"
+    -   name: ubuntu-16.04
+        provisioner:
+            name: puppet_apply
+            puppet_apt_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
+    -   name: ubuntu-16.04-puppet4
+        driver_config:
+            image: ubuntu:16.04
+            platform: ubuntu
+        provisioner:
+            name: puppet_apply
+            require_puppet_collections: true
+            puppet_apt_collections_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
+    -   name: ubuntu-18.04
+        provisioner:
+            name: puppet_apply
+            puppet_apt_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
+    -   name: ubuntu-18.04-puppet4
+        driver_config:
+            image: ubuntu:18.04
+            platform: ubuntu
+        provisioner:
+            name: puppet_apply
+            require_puppet_collections: true
+            puppet_apt_collections_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
+    -   name: centos-7
+        driver_config:
+            run_command: /usr/sbin/init
+            privileged: true
+        provisioner:
+            name: puppet_apply
+            require_puppet_collections: true
+            puppet_yum_collections_repo: "https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm"
+    -   name: centos-7-puppet4
+        driver_config:
+            image: centos:7
+            platform: centos
+            run_command: /usr/sbin/init
+            privileged: true
+        provisioner:
+            name: puppet_apply
+            require_puppet_collections: true
+            puppet_yum_collections_repo: "https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm"
 
 suites:
-  - name: default
-  - name: hiera
-  - name: existinginstall
-    provisioner:
-        name: puppet_apply
-        custom_pre_apply_command: "sudo cp /tmp/kitchen/files/graylog-collector-sidecar /usr/bin; sudo chmod +x /usr/bin/graylog-collector-sidecar"
-  - name: oldinstall
-    provisioner:
-        name: puppet_apply
-        custom_pre_apply_command: "sudo cp /tmp/kitchen/files/graylog-collector-sidecar /usr/bin; sudo chmod +x /usr/bin/graylog-collector-sidecar"
-  - name: changesettings
-    provisioner:
-        name: puppet_apply
-        custom_pre_apply_comand: "sudo bash /tmp/kitchen/files/prepare.sh"
+    -   name: default
+    -   name: hiera
+    -   name: existinginstall
+        provisioner:
+            name: puppet_apply
+            custom_pre_apply_command: "sudo cp /tmp/kitchen/files/graylog-collector-sidecar /usr/bin; sudo chmod +x /usr/bin/graylog-collector-sidecar"
+    -   name: oldinstall
+        provisioner:
+            name: puppet_apply
+            custom_pre_apply_command: "sudo cp /tmp/kitchen/files/graylog-collector-sidecar /usr/bin; sudo chmod +x /usr/bin/graylog-collector-sidecar"
+    -   name: changesettings
+        provisioner:
+            name: puppet_apply
+            custom_pre_apply_comand: "sudo bash /tmp/kitchen/files/prepare.sh"
