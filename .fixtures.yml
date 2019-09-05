@@ -1,6 +1,6 @@
 fixtures:
   forge_modules:
-    yamlfile: "reidmv/yamlfile"
+    hash2stuff: "mmckinst-hash2stuff"
     filemapper: "puppet/filemapper"
     remote_file: "lwf/remote_file"
   repositories:

@@ -1,6 +1,6 @@
 {
   "name": "dodevops-graylogcollectorsidecar",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "author": "Dennis Ploeger <develop@dieploegers.de>",
   "summary": "Installs and configures the graylog collector sidecar",
   "license": "MIT",
@@ -9,8 +9,8 @@
   "issues_url": "https://github.com/dodevops/puppet-graylogcollectorsidecar/issues",
   "dependencies": [
     {
-      "name": "reidmv-yamlfile",
-      "version_requirement": ">= 0.2.0"
+      "name": "mmckinst-hash2stuff",
+      "version_requirement": ">= 1.2.1"
     },
     {
       "name": "dodevops-githubreleases",

@@ -13,6 +13,7 @@
 # @param send_status Graylog-Collector sidecar configuration item "send_status". Check docs for info.
 # @param node_id Graylog-Collector sidecar configuration item "node_id". Check docs for info.
 # @param collector_id Graylog-Collector sidecar configuration item "collector_id". Check docs for info.
+# @param cache_path Graylog-Collector sidecar configuration item "cache_path". Check docs for info.
 # @param log_path Graylog-Collector sidecar configuration item "log_path". Check docs for info.
 # @param log_rotation_time Graylog-Collector sidecar configuration item "log_rotation_time". Check docs for info.
 # @param log_max_age Graylog-Collector sidecar configuration item "log_max_age". Check docs for info.
@@ -35,6 +36,7 @@ class graylogcollectorsidecar (
   Boolean $send_status,
   String $node_id,
   String $collector_id,
+  String $cache_path,
   String $log_path,
   Integer $log_rotation_time,
   Integer $log_max_age,
@@ -110,107 +112,33 @@ class graylogcollectorsidecar (
 
   # Configure it
 
-  yaml_setting {
-    'sidecar_set_server':
-      target  => $sidecar_yaml_file,
-      key     => 'server_url',
-      value   => $api_url,
-      require => $_require_config,
-  } ~> Service['sidecar']
+  $_list_log_files_addition = $list_log_files ? {
+    undef => {},
+    default => {
+      list_log_files => $list_log_files
+    }
+  }
 
-  yaml_setting {
-    'sidecar_set_tags':
-      target  => $sidecar_yaml_file,
-      key     => 'tags',
-      value   => $tags,
-      require => $_require_config,
-  } ~> Service['sidecar']
+  $_configuration = {
+    server_url => $api_url,
+    update_interval => $update_interval,
+    tls_skip_verify => $tls_skip_verify,
+    send_status => $send_status,
+    node_id => $node_id,
+    collector_id => $collector_id,
+    cache_path => $cache_path,
+    log_path => $log_path,
+    log_rotation_time => $log_rotation_time,
+    log_max_age => $log_max_age,
+    tags => $tags,
+    backends => $backends,
+  } + $_list_log_files_addition
 
-  # Set defaults
-
-  yaml_setting {
-    'sidecar_set_update_interval':
-      target  => $sidecar_yaml_file,
-      key     => 'update_interval',
-      type    => 'integer',
-      value   => $update_interval,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  yaml_setting {
-    'sidecar_set_tls_skip_verify':
-      target  => $sidecar_yaml_file,
-      key     => 'tls_skip_verify',
-      value   => $tls_skip_verify,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  yaml_setting {
-    'sidecar_set_send_status':
-      target  => $sidecar_yaml_file,
-      key     => 'send_status',
-      value   => $send_status,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  yaml_setting {
-    'sidecar_set_log_rotation_time':
-      target  => $sidecar_yaml_file,
-      key     => 'log_rotation_time',
-      type    => 'integer',
-      value   => $log_rotation_time,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  yaml_setting {
-    'sidecar_set_log_max_age':
-      target  => $sidecar_yaml_file,
-      key     => 'log_max_age',
-      type    => 'integer',
-      value   => $log_max_age,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  yaml_setting {
-    'sidecar_set_node_id':
-      target  => $sidecar_yaml_file,
-      key     => 'node_id',
-      value   => $node_id,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  yaml_setting {
-    'sidecar_set_collector_id':
-      target  => $sidecar_yaml_file,
-      key     => 'collector_id',
-      value   => $collector_id,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  yaml_setting {
-    'sidecar_set_log_path':
-      target  => $sidecar_yaml_file,
-      key     => 'log_path',
-      value   => $log_path,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  yaml_setting {
-    'sidecar_set_backends':
-      target  => $sidecar_yaml_file,
-      key     => 'backends',
-      value   => $backends,
-      require => $_require_config,
-  } ~> Service['sidecar']
-
-  if ($list_log_files) {
-    yaml_setting {
-      'sidecar_set_list_log_files':
-        target  => $sidecar_yaml_file,
-        key     => 'list_log_files',
-        value   => $list_log_files,
-        require => Package['graylog-sidecar'],
-    } ~> Service['sidecar']
+  file {
+    $sidecar_yaml_file:
+      ensure  => 'present',
+      content => hash2yaml($_configuration),
+      require => $_require_config
   }
 
   # Start the service

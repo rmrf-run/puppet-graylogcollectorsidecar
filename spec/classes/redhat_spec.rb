@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'socket'
 
 describe 'graylogcollectorsidecar' do
   use_auth = false
@@ -52,13 +53,36 @@ describe 'graylogcollectorsidecar' do
     }
     it { is_expected.to contain_package('graylog-sidecar') }
     it { is_expected.to contain_service('sidecar') }
+
+    expected_content = <<EOT
+---
+server_url: http://graylog.example.com
+update_interval: 10
+tls_skip_verify: false
+send_status: true
+node_id: #{Socket.gethostname}
+collector_id: file:/etc/graylog/collector-sidecar/collector-id
+cache_path: "/var/cache/graylog/collector-sidecar"
+log_path: "/var/log/graylog"
+log_rotation_time: 86400
+log_max_age: 604800
+tags:
+- default
+backends:
+- name: nxlog
+  enabled: false
+  binary_path: "/usr/bin/nxlog"
+  configuration_path: "/etc/graylog/collector-sidecar/generated/nxlog.conf"
+- name: filebeat
+  enabled: true
+  binary_path: "/usr/bin/filebeat"
+  configuration_path: "/etc/graylog/collector-sidecar/generated/filebeat.yml"
+EOT
     it {
-      is_expected.to contain_yaml_setting('sidecar_set_server').with_value('http://graylog.example.com')
+      is_expected.to contain_file('/etc/graylog/collector-sidecar/collector_sidecar.yml').with_content(
+        expected_content,
+      )
     }
-    it { is_expected.to contain_yaml_setting('sidecar_set_tags') }
-    it { is_expected.to contain_yaml_setting('sidecar_set_log_path') }
-    it { is_expected.not_to contain_yaml_setting('sidecar_set_list_log_files') }
-    it { is_expected.to contain_yaml_setting('sidecar_set_backends') }
   end
 
   context 'on RedHat/i386' do

@@ -7,6 +7,7 @@ graylogcollectorsidecar::password: ""
 # Configuration defaults
 graylogcollectorsidecar::node_id: "%{facts.networking.hostname}"
 graylogcollectorsidecar::collector_id: "file:/etc/graylog/collector-sidecar/collector-id"
+graylogcollectorsidecar::cache_path: "/var/cache/graylog/collector-sidecar"
 graylogcollectorsidecar::log_path: "/var/log/graylog/collector-sidecar"
 graylogcollectorsidecar::log_rotation_time: 86400
 graylogcollectorsidecar::log_max_age: 604800
