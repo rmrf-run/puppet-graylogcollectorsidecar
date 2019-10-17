@@ -146,7 +146,7 @@ class graylogcollectorsidecar (
   service {
     'sidecar':
       ensure => 'running',
-      name   => 'collector-sidecar',
+      name   => 'graylog-sidecar',
   }
 
 }
