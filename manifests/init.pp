@@ -99,7 +99,7 @@ class graylogcollectorsidecar (
     exec {
       'install_sidecar_service':
         creates => $service_creates,
-        command => 'graylog-collector-sidecar -service install',
+        command => 'graylog-sidecar -service install',
         path    => [ '/usr/bin', '/bin' ],
     }
 
