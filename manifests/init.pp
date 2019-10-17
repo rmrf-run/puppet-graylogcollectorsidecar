@@ -54,7 +54,7 @@ class graylogcollectorsidecar (
 
   $_require_config = $::installed_sidecar_version ? {
     $version => undef,
-    default => Package['graylog-sidecar']
+    default => Package["graylog-sidecar-${version}.${::architecture}.${package_suffix}"]
   }
 
   if ($::installed_sidecar_version == $version) {
@@ -104,7 +104,7 @@ class graylogcollectorsidecar (
     }
 
     Githubreleases::Download['get_sidecar_package']
-    -> Package['graylog-sidecar']
+    -> Package["graylog-sidecar-${version}.${::architecture}.${package_suffix}"]
     -> Exec['install_sidecar_service']
     -> Service['sidecar']
 
