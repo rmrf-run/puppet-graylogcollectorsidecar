@@ -87,7 +87,7 @@ class graylogcollectorsidecar (
     # Install the package
 
     package {
-      'graylog-sidecar':
+      "graylog-sidecar-${version}.${::architecture}.${package_suffix}":
         ensure   => 'installed',
         name     => 'collector-sidecar',
         provider => $package_provider,
