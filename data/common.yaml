@@ -6,7 +6,7 @@ graylogcollectorsidecar::password: ""
 
 # Configuration defaults
 graylogcollectorsidecar::node_id: "%{facts.networking.hostname}"
-graylogcollectorsidecar::collector_id: "file:/etc/graylog/collector-sidecar/collector-id"
+graylogcollectorsidecar::collector_id: "file:/etc/graylog/sidecar/collector-id"
 graylogcollectorsidecar::cache_path: "/var/cache/graylog/collector-sidecar"
 graylogcollectorsidecar::log_path: "/var/log/graylog/collector-sidecar"
 graylogcollectorsidecar::log_rotation_time: 86400
@@ -27,4 +27,4 @@ graylogcollectorsidecar::backends:
 # Installation details
 
 graylogcollectorsidecar::service_creates: "/etc/init/collector-sidecar.conf"
-graylogcollectorsidecar::sidecar_yaml_file: "/etc/graylog/collector-sidecar/collector_sidecar.yml"
+graylogcollectorsidecar::sidecar_yaml_file: "/etc/graylog/sidecar/sidecar.yml"
