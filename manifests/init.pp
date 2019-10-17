@@ -25,6 +25,7 @@
 # @param package_provider The package provider used to install the package [internal]
 class graylogcollectorsidecar (
   String $api_url,
+  String $server_api_token,
   Array[String] $tags,
   String $version,
   Variant[Boolean, String] $use_auth,
@@ -121,6 +122,7 @@ class graylogcollectorsidecar (
 
   $_configuration = {
     server_url => $api_url,
+    server_api_token => $server_api_token,
     update_interval => $update_interval,
     tls_skip_verify => $tls_skip_verify,
     send_status => $send_status,
