@@ -19,11 +19,11 @@ graylogcollectorsidecar::backends:
     -   name: "nxlog"
         enabled: false
         binary_path: "/usr/bin/nxlog"
-        configuration_path: "/etc/graylog/sidecar/generated/nxlog.conf"
+        configuration_path: "/var/lib/graylog-sidecar/generated/nxlog.conf"
     -   name: "filebeat"
         enabled: true
         binary_path: "/usr/bin/filebeat"
-        configuration_path: "/etc/graylog/sidecar/generated/filebeat.yml"
+        configuration_path: "/var/lib/graylog-sidecar/generated/filebeat.conf"
 
 # Installation details
 
