@@ -3,6 +3,4 @@ fixtures:
     hash2stuff: "mmckinst-hash2stuff"
     filemapper: "puppet/filemapper"
     remote_file: "lwf/remote_file"
-  repositories:
-    githubreleases:
-      repo: "https://github.com/dodevops/puppet-githubreleases"
+    githubreleases: "dodevops/githubreleases"
