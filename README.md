@@ -1,6 +1,10 @@
 # dodevops/graylogcollectorsidecar
 [![Travis](https://img.shields.io/travis/dodevops/puppet-graylogcollectorsidecar.svg)](https://travis-ci.org/dodevops/puppet-graylogcollectorsidecar)
 
+# Deprecation notice
+
+**This module is deprecated** because of the new, incompatible and (in our eyes) unusable new sidecar feature from Graylog 3. If somebody wants to adopt it, please open an issue.
+
 #### Table of Contents
 
 1. [Description](#description)

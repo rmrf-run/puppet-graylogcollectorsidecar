@@ -54,7 +54,7 @@ class graylogcollectorsidecar (
 
   $_require_config = $::installed_sidecar_version ? {
     $version => undef,
-    default => Package['graylog-sidecar']
+    default  => Package['graylog-sidecar']
   }
 
   if ($::installed_sidecar_version == $version) {
@@ -69,15 +69,14 @@ class graylogcollectorsidecar (
       $is_tag = true
     }
 
-    githubreleases::download {
-      'get_sidecar_package':
+    githubreleases_download {
+      "/tmp/collector-sidecar.${package_suffix}":
         author            => 'Graylog2',
         repository        => 'collector-sidecar',
         release           => $version,
         is_tag            => $is_tag,
         asset             => true,
         asset_filepattern => "${::architecture}\\.${package_suffix}",
-        target            => "/tmp/collector-sidecar.${package_suffix}",
         use_auth          => $use_auth,
         use_oauth         => $use_oauth,
         username          => $username,
@@ -86,7 +85,7 @@ class graylogcollectorsidecar (
 
     # Install the package
 
-    package {
+    -> package {
       'graylog-sidecar':
         ensure   => 'installed',
         name     => 'collector-sidecar',
@@ -96,42 +95,37 @@ class graylogcollectorsidecar (
 
     # Create a sidecar service
 
-    exec {
+    -> exec {
       'install_sidecar_service':
         creates => $service_creates,
         command => 'graylog-collector-sidecar -service install',
         path    => [ '/usr/bin', '/bin' ],
+        before  => Service['sidecar']
     }
-
-    Githubreleases::Download['get_sidecar_package']
-    -> Package['graylog-sidecar']
-    -> Exec['install_sidecar_service']
-    -> Service['sidecar']
-
   }
 
   # Configure it
 
   $_list_log_files_addition = $list_log_files ? {
-    undef => {},
+    undef   => {},
     default => {
       list_log_files => $list_log_files
     }
   }
 
   $_configuration = {
-    server_url => $api_url,
-    update_interval => $update_interval,
-    tls_skip_verify => $tls_skip_verify,
-    send_status => $send_status,
-    node_id => $node_id,
-    collector_id => $collector_id,
-    cache_path => $cache_path,
-    log_path => $log_path,
+    server_url        => $api_url,
+    update_interval   => $update_interval,
+    tls_skip_verify   => $tls_skip_verify,
+    send_status       => $send_status,
+    node_id           => $node_id,
+    collector_id      => $collector_id,
+    cache_path        => $cache_path,
+    log_path          => $log_path,
     log_rotation_time => $log_rotation_time,
-    log_max_age => $log_max_age,
-    tags => $tags,
-    backends => $backends,
+    log_max_age       => $log_max_age,
+    tags              => $tags,
+    backends          => $backends,
   } + $_list_log_files_addition
 
   file {

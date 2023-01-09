@@ -13,7 +13,8 @@ provisioner:
         - "spec"
         - "vendor"
     custom_facts:
-        GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] %>
+        GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] || false %>
+        GITHUB_USE_OAUTH: <%= ENV['GITHUB_USE_OAUTH'] || false %>
         GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
         GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
 platforms:
