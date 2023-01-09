@@ -104,11 +104,6 @@ class graylogcollectorsidecar (
         before  => Service['sidecar']
     }
 
-    Githubreleases::Download['get_sidecar_package']
-    -> Package["graylog-sidecar-${version}-1.${::architecture}.${package_suffix}"]
-    -> Exec['install_sidecar_service']
-    -> Service['sidecar']
-
   }
 
   # Configure it
