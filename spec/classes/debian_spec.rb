@@ -45,7 +45,7 @@ describe 'graylogcollectorsidecar' do
 
     it { is_expected.to compile }
     it {
-      is_expected.to contain_remote_file('fetch./tmp/collector-sidecar.deb')
+      is_expected.to contain_githubreleases_download('/tmp/collector-sidecar.deb')
     }
     it { is_expected.to contain_package('graylog-sidecar') }
     it { is_expected.to contain_service('sidecar') }
@@ -109,7 +109,7 @@ EOT
     end
 
     it {
-      is_expected.to contain_remote_file('fetch./tmp/collector-sidecar.deb')
+      is_expected.to contain_githubreleases_download('/tmp/collector-sidecar.deb')
     }
     it { is_expected.to contain_package('graylog-sidecar') }
     it { is_expected.to contain_service('sidecar') }
