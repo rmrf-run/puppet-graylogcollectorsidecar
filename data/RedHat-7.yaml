@@ -1,1 +1,1 @@
-graylogcollectorsidecar::service_creates: "/etc/systemd/system/collector-sidecar.service"
+graylogcollectorsidecar::service_creates: "/etc/systemd/system/graylog-sidecar.service"

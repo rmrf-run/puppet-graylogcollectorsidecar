@@ -25,6 +25,7 @@
 # @param package_provider The package provider used to install the package [internal]
 class graylogcollectorsidecar (
   String $api_url,
+  String $server_api_token,
   Array[String] $tags,
   String $version,
   Variant[Boolean, String] $use_auth,
@@ -54,7 +55,7 @@ class graylogcollectorsidecar (
 
   $_require_config = $::installed_sidecar_version ? {
     $version => undef,
-    default  => Package['graylog-sidecar']
+    default => Package["graylog-sidecar-${version}-1.${::architecture}.${package_suffix}"]
   }
 
   if ($::installed_sidecar_version == $version) {
@@ -85,8 +86,8 @@ class graylogcollectorsidecar (
 
     # Install the package
 
-    -> package {
-      'graylog-sidecar':
+    package {
+      "graylog-sidecar-${version}-1.${::architecture}.${package_suffix}":
         ensure   => 'installed',
         name     => 'collector-sidecar',
         provider => $package_provider,
@@ -98,10 +99,16 @@ class graylogcollectorsidecar (
     -> exec {
       'install_sidecar_service':
         creates => $service_creates,
-        command => 'graylog-collector-sidecar -service install',
+        command => 'graylog-sidecar -service install',
         path    => [ '/usr/bin', '/bin' ],
         before  => Service['sidecar']
     }
+
+    Githubreleases::Download['get_sidecar_package']
+    -> Package["graylog-sidecar-${version}-1.${::architecture}.${package_suffix}"]
+    -> Exec['install_sidecar_service']
+    -> Service['sidecar']
+
   }
 
   # Configure it
@@ -114,14 +121,15 @@ class graylogcollectorsidecar (
   }
 
   $_configuration = {
-    server_url        => $api_url,
-    update_interval   => $update_interval,
-    tls_skip_verify   => $tls_skip_verify,
-    send_status       => $send_status,
-    node_id           => $node_id,
-    collector_id      => $collector_id,
-    cache_path        => $cache_path,
-    log_path          => $log_path,
+    server_url => $api_url,
+    server_api_token => $server_api_token,
+    update_interval => $update_interval,
+    tls_skip_verify => $tls_skip_verify,
+    send_status => $send_status,
+    node_id => $node_id,
+    collector_id => $collector_id,
+    cache_path => $cache_path,
+    log_path => $log_path,
     log_rotation_time => $log_rotation_time,
     log_max_age       => $log_max_age,
     tags              => $tags,
@@ -140,7 +148,7 @@ class graylogcollectorsidecar (
   service {
     'sidecar':
       ensure => 'running',
-      name   => 'collector-sidecar',
+      name   => 'graylog-sidecar',
   }
 
 }
